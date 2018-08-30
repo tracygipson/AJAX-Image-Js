@@ -1,0 +1,24 @@
+<html>
+    <body>
+<div id="img"></div>
+
+
+        <script>
+        var req = new XMLHttpRequest();
+        var url = "https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&size=100x100";
+
+        req.onreadystatechange = function(){
+            if (req.readyState === 4){
+                console.log(req.response);
+               
+                document.getElementById("img").src = "data:"+req.getResponseHeader("Content-Type")+";base64," + btoa(String.fromCharCode.apply(null, new Uint8Array(req.response)));
+
+            }
+        }
+        req.responseType = "arraybuffer";
+        req.open('GET', url, true);
+        req.send();
+        
+        </script>
+    </body>
+</html>
